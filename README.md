@@ -1,6 +1,13 @@
 # WhatsApp Bot
 
 [![JavaScript](https://img.shields.io/badge/JavaScript-ES6-F7DF1E.svg)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[![Node.js](https://img.shields.io/badge/Node.js-18.16.0-green.svg)](https://nodejs.org/)
+[![Express.js](https://img.shields.io/badge/Express.js-4.18.2-lightgrey.svg)](https://expressjs.com/)
+[![whatsapp-web.js](https://img.shields.io/badge/whatsapp--web.js-1.21.0-blue.svg)](https://github.com/pedroslopez/whatsapp-web.js)
+[![qrcode](https://img.shields.io/badge/qrcode-0.12.0-orange.svg)](https://www.npmjs.com/package/qrcode-terminal)
+[![mime-types](https://img.shields.io/badge/mime--types-2.1.35-red.svg)](https://www.npmjs.com/package/mime-types)
+
+
 
 # Try the bot 👉 https://Wa.me/+573225237259
 
@@ -45,10 +52,6 @@ This functionality allows users to easily convert images into stickers for shari
    ```
 
 2. Scan the QR code with your mobile device using WhatsApp to access WhatsApp Web.
-
-3. Send a photo to the bot.
-
-4. The bot will process the photo and send you a sticker generated from it.
 
 ## License
 This project is licensed under the GNU General Public License v2.0. See the `LICENSE` file for more details.
