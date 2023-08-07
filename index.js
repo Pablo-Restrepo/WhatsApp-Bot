@@ -30,7 +30,7 @@ client.on('message', async message => {
                     console.log('File downloaded successfully!', fullFilename);
                     console.log(fullFilename);
                     MessageMedia.fromFilePath(filePath = fullFilename)
-                    client.sendMessage(message.from, new MessageMedia(media.mimetype, media.data, filename), { sendMediaAsSticker: true, stickerAuthor: "Pablo736", stickerName: "GitHub" })
+                    client.sendMessage(message.from, new MessageMedia(media.mimetype, media.data, filename), { sendMediaAsSticker: true, stickerAuthor: "GitHub", stickerName: "Pablo736" })
                     fs.unlinkSync(fullFilename)
                     console.log(`File Deleted successfully!`,);
                 } catch (err) {
