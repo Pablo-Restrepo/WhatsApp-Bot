@@ -7,14 +7,6 @@ const client = new Client();
 const fs = require('fs');
 const mime = require('mime-types');
 
-app.get('/', (req, res) => {
-    res.send('Bot Ready!');
-});
-
-app.listen(port, () => {
-    console.log(`La aplicación está escuchando en el puerto ${port}`);
-});
-
 client.on('qr', qr => {
     qrcode.generate(qr, { small: true });
 });
@@ -51,4 +43,12 @@ client.on('message', async message => {
             }
         });
     }
+});
+
+app.get('/', (req, res) => {
+    res.send('Bot Ready!');
+});
+
+app.listen(port, () => {
+    console.log(`La aplicación está escuchando en el puerto ${port}`);
 });
