@@ -14,7 +14,7 @@ client.on('ready', () => {
 
 client.initialize();
 
-client.on('message', message => {
+client.on('message', async message => {
     if (message.hasMedia && message.type === 'image') {
         message.downloadMedia().then(media => {
             if (media) {
