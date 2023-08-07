@@ -2,8 +2,19 @@
 
 [![JavaScript](https://img.shields.io/badge/JavaScript-ES6-F7DF1E.svg)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 
+# Try the bot 👉 https://Wa.me/+573225237259
 
-This is a WhatsApp bot created in JavaScript that allows you to send a photo and receive a sticker generated from that photo.
+This is a WhatsApp bot created in JavaScript.
+
+## Functionalities:
+
+### 1. Image-to-Sticker Conversion
+
+This functionality allows users to easily convert images into stickers for sharing and fun interactions on WhatsApp:
+
+<p align="center">
+  <img src="docs/image.png">
+</p>
 
 ## Installation
 
