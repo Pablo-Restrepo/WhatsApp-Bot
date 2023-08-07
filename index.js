@@ -2,10 +2,14 @@ const express = require('express');
 const app = express();
 const port = 10000;
 const qrcode = require('qrcode-terminal');
-const { Client, MessageMedia } = require('whatsapp-web.js');
-const client = new Client();
+const { Client, MessageMedia, LocalAuth } = require('whatsapp-web.js');
 const fs = require('fs');
 const mime = require('mime-types');
+
+// Crear una instancia del cliente de WhatsApp
+const client = new Client({
+    authStrategy: new LocalAuth()
+});
 
 // Generar y mostrar el código QR para la autenticación
 client.on('qr', qr => {
@@ -22,6 +26,8 @@ client.initialize();
 
 // Manejar mensajes entrantes
 client.on('message', async message => {
+    console.log('Mensaje de:', message.from);
+
     if (message.hasMedia && message.type === 'image') {
         message.downloadMedia().then(media => {
             if (media) {
@@ -32,6 +38,8 @@ client.on('message', async message => {
                 const extension = mime.extension(media.mimetype);
                 const filename = new Date().getTime();
                 const fullFilename = mediaPath + filename + '.' + extension;
+
+                console.log('Envio:', fullFilename);
                 try {
                     // Guardar el archivo descargado
                     fs.writeFileSync(fullFilename, media.data, { encoding: 'base64' });
@@ -67,3 +75,11 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
     console.log(`La aplicación está escuchando en el puerto ${port}`);
 });
+
+// Manejar la señal SIGINT (Ctrl+C) para apagar el cliente antes de salir
+
+process.on("SIGINT", async () => {
+    console.log("(SIGINT) Shutting down...");
+    await client.destroy();
+    process.exit(0);
+})

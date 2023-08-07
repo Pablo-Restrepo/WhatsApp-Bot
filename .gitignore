@@ -2,3 +2,4 @@
 node_modules/
 downloaded-media/
 .wwebjs_cache/
+.wwebjs_auth/
