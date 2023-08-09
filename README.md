@@ -15,7 +15,7 @@ This is a WhatsApp bot created in JavaScript.
 
 ## Functionalities:
 
-### 1. Image-to-Sticker Conversion
+### 1. Image to Sticker Conversion
 
 This functionality allows users to easily convert images into stickers for sharing and fun interactions on WhatsApp:
 
@@ -28,7 +28,7 @@ This functionality allows users to easily convert images into stickers for shari
 1. Clone this repository to your local machine:
 
    ```bash
-   git clone https://github.com/your-user/whatsapp-sticker-bot.git
+   git clone https://github.com/your-user/whatsapp-bot.git
    ```
 
 2. Navigate to the project folder:

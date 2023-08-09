@@ -77,7 +77,6 @@ app.listen(port, () => {
 });
 
 // Manejar la señal SIGINT (Ctrl+C) para apagar el cliente antes de salir
-
 process.on("SIGINT", async () => {
     console.log("(SIGINT) Shutting down...");
     await client.destroy();

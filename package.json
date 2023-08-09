@@ -9,7 +9,7 @@
   },
   "keywords": [],
   "author": "Pablo736",
-  "license": "ISC",
+  "license": "LGPL-3.0-or-later",
   "dependencies": {
     "express": "^4.18.2",
     "mime-types": "^2.1.35",
