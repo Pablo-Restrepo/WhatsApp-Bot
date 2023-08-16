@@ -1,14 +1,9 @@
-const express = require('express');
-const app = express();
-const port = 10000;
 const qrcode = require('qrcode-terminal');
-const { Client, MessageMedia, LocalAuth } = require('whatsapp-web.js');
-const fs = require('fs');
-const mime = require('mime-types');
+const { Client, LocalAuth } = require('whatsapp-web.js');
 
 // Crear una instancia del cliente de WhatsApp
 const client = new Client({
-    authStrategy: new LocalAuth()
+    authStrategy: new LocalAuth(),
 });
 
 // Generar y mostrar el código QR para la autenticación
@@ -19,62 +14,51 @@ client.on('qr', qr => {
 // Cuando el cliente está listo
 client.on('ready', () => {
     console.log('Client is ready!');
+    pendingMessages();
 });
 
 // Inicializar el cliente de WhatsApp
 client.initialize();
 
+// Verifica si hay mensajes pendientes y los procesa
+async function pendingMessages() {
+    let chats = await client.getChats();
+    for (let chat of chats) {
+        if (chat.unreadCount > 0) {
+            // Obtener mensajes no leídos del chat actual
+            let unreadMessages = await chat.fetchMessages({ limit: chat.unreadCount });
+            for (let msg of unreadMessages) {
+                await processMediaMessage(msg);
+            }
+        }
+    }
+}
+
 // Manejar mensajes entrantes
 client.on('message', async message => {
-    console.log('Mensaje de:', message.from);
+    await processMediaMessage(message);
+});
 
+// Convierte a Sticker
+async function processMediaMessage(message) {
+    console.log('Mensaje de:', message.from, 'Envia:', message.type);
     if (message.hasMedia && message.type === 'image') {
-        message.downloadMedia().then(media => {
-            if (media) {
-                const mediaPath = './downloaded-media/';
-                if (!fs.existsSync(mediaPath)) {
-                    fs.mkdirSync(mediaPath);
-                }
-                const extension = mime.extension(media.mimetype);
-                const filename = new Date().getTime();
-                const fullFilename = mediaPath + filename + '.' + extension;
-
-                console.log('Envio:', fullFilename);
-                try {
-                    // Guardar el archivo descargado
-                    fs.writeFileSync(fullFilename, media.data, { encoding: 'base64' });
-
-                    // Crear un objeto MessageMedia a partir del archivo descargado
-                    const messageMedia = new MessageMedia(media.mimetype, media.data, filename);
-
-                    // Enviar el medio como sticker en respuesta al mensaje original
-                    client.sendMessage(message.from, messageMedia, {
-                        sendMediaAsSticker: true,
-                        stickerAuthor: "GitHub",
-                        stickerName: "Pablo736"
-                    });
-
-                    // Eliminar el archivo después de usarlo
-                    fs.unlinkSync(fullFilename);
-                    console.log('File Deleted successfully!');
-                } catch (err) {
-                    console.log('Failed to save the file:', err);
-                    console.log('File Deleted successfully!');
-                }
-            }
-        });
+        try {
+            const media = await message.downloadMedia();
+            // Enviar el medio como sticker en respuesta al mensaje original
+            client.sendMessage(message.from, media, {
+                sendMediaAsSticker: true,
+                stickerAuthor: "WhatsApp Bot",
+                stickerName: "GitHub.com/Pablo736"
+            });
+            console.log('Sticker enviado correctamente!');
+        } catch (err) {
+            console.log('Error al procesar la imagen:', err);
+        }
+    } else {
+        message.reply('Send an image to convert into a Sticker.');
     }
-});
-
-// Ruta de inicio del servidor web
-app.get('/', (req, res) => {
-    res.send('Bot Ready!');
-});
-
-// Iniciar el servidor web
-app.listen(port, () => {
-    console.log(`La aplicación está escuchando en el puerto ${port}`);
-});
+}
 
 // Manejar la señal SIGINT (Ctrl+C) para apagar el cliente antes de salir
 process.on("SIGINT", async () => {
