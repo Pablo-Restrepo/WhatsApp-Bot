@@ -14,25 +14,10 @@ client.on('qr', qr => {
 // Cuando el cliente está listo
 client.on('ready', () => {
     console.log('Client is ready!');
-    pendingMessages();
 });
 
 // Inicializar el cliente de WhatsApp
 client.initialize();
-
-// Verifica si hay mensajes pendientes y los procesa
-async function pendingMessages() {
-    let chats = await client.getChats();
-    for (let chat of chats) {
-        if (chat.unreadCount > 0) {
-            // Obtener mensajes no leídos del chat actual
-            let unreadMessages = await chat.fetchMessages({ limit: chat.unreadCount });
-            for (let msg of unreadMessages) {
-                await processMediaMessage(msg);
-            }
-        }
-    }
-}
 
 // Manejar mensajes entrantes
 client.on('message', async message => {
@@ -52,6 +37,9 @@ async function processMediaMessage(message) {
                 stickerName: "GitHub.com/Pablo736"
             });
             console.log('Sticker enviado correctamente!');
+
+            // Liberar memoria
+            delete media;
         } catch (err) {
             console.log('Error al procesar la imagen:', err);
         }

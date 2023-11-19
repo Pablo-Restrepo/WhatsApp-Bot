@@ -9,8 +9,6 @@
 
 
 
-# Try the bot 👉 https://Wa.me/+573225237259
-
 This is a WhatsApp bot created in JavaScript.
 
 ## Functionalities:
