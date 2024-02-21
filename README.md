@@ -26,7 +26,7 @@ This functionality allows users to easily convert images into stickers for shari
 1. Clone this repository to your local machine:
 
    ```bash
-   git clone https://github.com/pablo736/whatsapp-bot.git
+   git clone https://github.com/Pablo-Restrepo/whatsapp-bot.git
    ```
 
 2. Navigate to the project folder:
