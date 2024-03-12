@@ -34,7 +34,7 @@ async function processMediaMessage(message) {
             client.sendMessage(message.from, media, {
                 sendMediaAsSticker: true,
                 stickerAuthor: "WhatsApp Bot",
-                stickerName: "GitHub.com/Pablo736"
+                stickerName: "GitHub.com/Pablo-Restrepo"
             });
             console.log('Sticker enviado correctamente!');
 
